@@ -23,15 +23,15 @@ router.put('/:id', auth, async (req, res) => {
   res.json(updated);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',auth , async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ msg: 'Task not found' });
 
     // Example authorization check: only Admin or assigned user can delete
-    // if (req.user.role !== 'Admin' && task.assignedTo.toString() !== req.user._id) {
-    //   return res.status(403).json({ msg: 'Forbidden: Not allowed to delete this task' });
-    // }
+    if (req.user.role !== 'Admin' && task.assignedTo.toString() !== req.user._id) {
+      return res.status(403).json({ msg: 'Forbidden: Not allowed to delete this task' });
+    }
 
     await Task.findByIdAndDelete(req.params.id);
     res.json({ msg: 'Task deleted' });

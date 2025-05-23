@@ -17,6 +17,7 @@ const Dashboard = () => {
   });
   const [comments, setComments] = useState({});
   const [commentInputs, setCommentInputs] = useState({});
+  
   const navigate = useNavigate();
 
   // Fetch tasks
@@ -112,13 +113,12 @@ const Dashboard = () => {
     }
   };
 const deleteTask = async (taskId) => {
-  // const token =  localStorage.getItem('token');
   try {
     const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${token}`
+        Authorization: user.token,
       },
     });
     const data = await response.json();
@@ -351,12 +351,14 @@ const deleteTask = async (taskId) => {
                         )
                       ) {
                         deleteTask(task._id);
+                        
                       }
                     }}
                     className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded ml-auto"
                   >
                     Delete
                   </button>
+                  
 
                   {/* Comments section */}
                   <div className="mt-4">
