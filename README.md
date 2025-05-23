@@ -59,7 +59,7 @@ npm run dev
 
 ```
 ## env file
-PORT=your port number
-MONGO_URI=mongo db url
-JWT_SECRET=your_jwt_secret
+-PORT=your port number
+-MONGO_URI=mongo db url
+-JWT_SECRET=your_jwt_secret
 
